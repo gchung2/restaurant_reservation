@@ -62,6 +62,16 @@ async function createReservation(reservation, signal) {
   return await fetchJson(url, options, reservation);
 }
 
+async function updateReservation(reservation_id, status, signal) {
+  const url = `${API_BASE_URL}/reservations${reservation_id}/seat`;
+  const options = {
+    method: "PUT",
+    headers,
+    body: JSON.stringify({ data: { status } }),
+    signal,
+  };
+  return await fetchJson(url, options, reservation);
+}
 /**
  * Creates a new table
  * @returns {Promise<[table]>}
@@ -90,6 +100,7 @@ async function seatReservation(reservation_id, table_id) {
 
 module.exports = {
   createReservation,
+  updateReservation,
   createTable,
   seatReservation,
 };
